@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:band_names/src/providers/socket_provider.dart';
 
 addNewBand(
   BuildContext context,
@@ -19,7 +22,6 @@ addNewBand(
             onPressed: () => validateNewBand(
               controllerBandName.text,
               context,
-              addBandNameCallback,
             ),
             child: const Text('Add'),
           )
@@ -29,10 +31,10 @@ addNewBand(
   );
 }
 
-validateNewBand(
-    String bandName, BuildContext context, Function(String) addBandCallback) {
+validateNewBand(String bandName, BuildContext context) {
   if (bandName.length > 3) {
-    addBandCallback(bandName);
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    socketService.socket.emit('add-band', {'name': bandName});
   }
 
   Navigator.pop(context);
