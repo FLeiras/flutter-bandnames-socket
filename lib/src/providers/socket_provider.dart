@@ -16,7 +16,7 @@ class SocketService with ChangeNotifier {
 
   void initConfig() {
     // Dart client
-    _socket = IO.io('http://10.101.10.8:3000/', {
+    _socket = IO.io('https://server-bandnames-socket.onrender.com/', {
       'transports': ['websocket'],
       'autoConnect': true,
     });
